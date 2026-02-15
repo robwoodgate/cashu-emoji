@@ -1,0 +1,13 @@
+{
+  "name": "cashu-emoji",
+  "version": "0.1.0",
+  "description": "Encode/decode Cashu tokens hidden in emoji variation selectors",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "cashu-emoji": "./bin/cashu-emoji.js"
+  },
+  "dependencies": {
+    "@cashu/cashu-ts": "^2.7.0"
+  }
+}
