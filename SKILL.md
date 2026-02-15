@@ -65,6 +65,8 @@ node ./bin/cashu-emoji.js encode "🥜" "cashuB..."
 
 Tip: some messengers are less likely to deliver a *truncated/corrupted* emoji-token if **any normal text follows it** (even a single character). It’s not required, just a delivery reliability trick.
 
+Tip (Telegram): sending the emoji-token inside a code block / “monospace” formatting can help preserve the hidden characters and makes it easier to tap-to-copy.
+
 ## Optional metadata
 
 To sanity-check the decoded token without redeeming it, you can request metadata:

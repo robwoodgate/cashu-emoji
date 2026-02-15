@@ -66,6 +66,8 @@ node ./bin/cashu-emoji.js encode "🥜" "cashuB..."
 
 Tip: Some messengers are less likely to deliver a *truncated/corrupted* emoji-token if **any normal text follows it** (even a single character). It’s not required, just a delivery reliability trick.
 
+Tip (Telegram): code block / “monospace” formatting can help preserve the hidden characters and makes it easier to tap-to-copy.
+
 ## Cashu gotchas for new agents
 
 - A decoded `cashu...` token is a **bearer asset**. Treat it like cash: don’t paste it into public logs/issues.
