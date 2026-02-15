@@ -5,12 +5,13 @@ function usage() {
   console.log(`cashu-emoji
 
 Usage:
-  cashu-emoji decode <text|-> [--metadata]
+  cashu-emoji decode <text|-> [--metadata] [--json]
   cashu-emoji encode <emoji> <text|->
 
 Notes:
   - Use '-' to read from stdin.
   - decode: pass the whole message (it will ignore non-variation-selector chars).
+  - --json: emit a single JSON object to stdout (more agent-friendly).
 `);
 }
 
@@ -39,21 +40,45 @@ if (cmd === 'decode') {
   }
 
   const wantMeta = args.includes('--metadata');
+  const wantJson = args.includes('--json');
+
   const text = (await readArgOrStdin(input)).trimEnd();
   const out = decode(text);
+
+  const isCashu = out.startsWith('cashu');
+
+  let meta = null;
+  let metaError = null;
+
+  if (wantMeta && isCashu) {
+    try {
+      const { getTokenMetadata } = await import('@cashu/cashu-ts');
+      meta = getTokenMetadata(out);
+    } catch (e) {
+      metaError = (e && e.message) ? e.message : String(e);
+    }
+  }
+
+  if (wantJson) {
+    const payload = {
+      text: out,
+      isCashu,
+      ...(wantMeta ? { metadata: meta, metadataError: metaError } : {}),
+    };
+    process.stdout.write(JSON.stringify(payload) + '\n');
+    process.exit(0);
+  }
+
+  // Default human-friendly output (pipeable): decoded text to stdout, metadata to stderr.
   process.stdout.write(out + '\n');
 
   if (wantMeta) {
-    if (!out.startsWith('cashu')) {
+    if (!isCashu) {
       process.stderr.write('metadata: decoded text does not look like a cashu token (does not start with "cashu")\n');
-    } else {
-      try {
-        const { getTokenMetadata } = await import('@cashu/cashu-ts');
-        const meta = getTokenMetadata(out);
-        process.stderr.write(`mint: ${meta.mint}\nunit: ${meta.unit}\namount: ${meta.amount}\n`);
-      } catch (e) {
-        process.stderr.write(`metadata error: ${(e && e.message) ? e.message : String(e)}\n`);
-      }
+    } else if (metaError) {
+      process.stderr.write(`metadata error: ${metaError}\n`);
+    } else if (meta) {
+      process.stderr.write(`mint: ${meta.mint}\nunit: ${meta.unit}\namount: ${meta.amount}\n`);
     }
   }
 

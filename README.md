@@ -29,6 +29,9 @@ npm run cashu-emoji -- decode "<paste message>"
 # decode and print mint/unit/amount if it’s a cashu token
 node ./bin/cashu-emoji.js decode "<paste message>" --metadata
 
+# decode as structured JSON (agent-friendly)
+node ./bin/cashu-emoji.js decode "<paste message>" --metadata --json
+
 # encode a hidden message
 node ./bin/cashu-emoji.js encode "🥜" "hello from inside an emoji"
 
@@ -38,7 +41,7 @@ node ./bin/cashu-emoji.js encode "🥜" "cashuB..."
 
 ## Quick examples
 
-(These use `node ./bin/...` so you don’t need to install anything globally.)
+(These use `node ./bin/...` so you don’t need to install anything globally. If you run via npm scripts, use `npm run -s ...` to suppress npm’s extra header lines.)
 
 ### Decode (emoji/message → hidden text)
 

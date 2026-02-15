@@ -34,6 +34,9 @@ node ./bin/cashu-emoji.js decode "<paste message>"
 # decode and print mint/unit/amount if it’s a cashu token
 node ./bin/cashu-emoji.js decode "<paste message>" --metadata
 
+# decode as structured JSON (agent-friendly)
+node ./bin/cashu-emoji.js decode "<paste message>" --metadata --json
+
 # encode a hidden message
 node ./bin/cashu-emoji.js encode "🥜" "hello from inside an emoji"
 
@@ -69,7 +72,13 @@ Tip (Telegram): sending the emoji-token inside a code block / “monospace” fo
 
 ## Optional metadata
 
-To sanity-check the decoded token without redeeming it, you can request metadata:
+To sanity-check the decoded token without redeeming it, you can request metadata.
+
+For programmatic/agent use, prefer JSON output:
+
+```bash
+node ./bin/cashu-emoji.js decode "<message>" --metadata --json
+```
 
 ```bash
 node ./bin/cashu-emoji.js decode "<message>" --metadata
