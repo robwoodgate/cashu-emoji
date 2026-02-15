@@ -8,6 +8,6 @@
     "cashu-emoji": "./bin/cashu-emoji.js"
   },
   "dependencies": {
-    "@cashu/cashu-ts": "^2.7.0"
+    "@cashu/cashu-ts": "^3.4.1"
   }
 }
