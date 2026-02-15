@@ -28,6 +28,9 @@
   "bin": {
     "cashu-emoji": "./bin/cashu-emoji.js"
   },
+  "scripts": {
+    "cashu-emoji": "node ./bin/cashu-emoji.js"
+  },
   "files": [
     "bin/",
     "src/",

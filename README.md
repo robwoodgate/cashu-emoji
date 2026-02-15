@@ -23,6 +23,9 @@ npm ci
 # decode a whole message (recommended)
 node ./bin/cashu-emoji.js decode "<paste message>"
 
+# (or via npm script)
+npm run cashu-emoji -- decode "<paste message>"
+
 # decode and print mint/unit/amount if it’s a cashu token
 node ./bin/cashu-emoji.js decode "<paste message>" --metadata
 
