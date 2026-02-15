@@ -15,6 +15,14 @@ This implementation is based on Paul Butler’s `emoji-encoder` technique and th
 
 ## Quickstart (copy/paste)
 
+### Option A: run via `npx` (after publish)
+
+```bash
+npx cashu-emoji decode "<paste message>"
+```
+
+### Option B: run from a clone (no publish required)
+
 ```bash
 git clone https://github.com/robwoodgate/cashu-emoji.git
 cd cashu-emoji
