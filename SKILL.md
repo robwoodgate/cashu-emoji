@@ -23,6 +23,28 @@ Important: many messengers can *truncate or normalize* Unicode. If the variation
 
 ## What you can do
 
+## Quickstart (copy/paste)
+
+```bash
+git clone https://github.com/robwoodgate/cashu-emoji.git
+cd cashu-emoji
+npm ci
+
+# decode a whole message (recommended)
+node ./bin/cashu-emoji.js decode "<paste message>"
+
+# decode and print mint/unit/amount if it’s a cashu token
+node ./bin/cashu-emoji.js decode "<paste message>" --metadata
+
+# encode a hidden message
+node ./bin/cashu-emoji.js encode "🥜" "hello from inside an emoji"
+
+# encode a cashu token
+node ./bin/cashu-emoji.js encode "🥜" "cashuB..."
+```
+
+## What you can do
+
 ### 1) Decode
 
 - Input: entire message text (may include other text/emojis)
@@ -31,6 +53,8 @@ Important: many messengers can *truncate or normalize* Unicode. If the variation
 ```bash
 cashu-emoji decode "<paste entire message>"
 ```
+
+Decode semantics (important): the decoder ignores normal characters until it finds the first variation-selector byte, then collects bytes until the first normal character after that payload begins.
 
 ### 2) Encode
 
@@ -41,7 +65,7 @@ cashu-emoji decode "<paste entire message>"
 cashu-emoji encode "🥜" "cashuB..."
 ```
 
-Tip: adding a short trailing sentinel (e.g. `" ok"`) after the emoji token can reduce the chance some messengers “corrupt” the token.
+Tip: some messengers are less likely to deliver a *truncated/corrupted* emoji-token if **any normal text follows it** (even a single character). It’s not required, just a delivery reliability trick.
 
 ## Optional metadata
 

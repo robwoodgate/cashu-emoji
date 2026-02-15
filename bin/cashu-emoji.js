@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-import fs from 'node:fs';
 import { encode, decode } from '../src/emoji-encoder.ts';
 
 function usage() {
@@ -45,12 +44,16 @@ if (cmd === 'decode') {
   process.stdout.write(out + '\n');
 
   if (wantMeta) {
-    try {
-      const { getTokenMetadata } = await import('@cashu/cashu-ts');
-      const meta = getTokenMetadata(out);
-      process.stderr.write(`mint: ${meta.mint}\nunit: ${meta.unit}\namount: ${meta.amount}\n`);
-    } catch (e) {
-      process.stderr.write(`metadata error: ${(e && e.message) ? e.message : String(e)}\n`);
+    if (!out.startsWith('cashu')) {
+      process.stderr.write('metadata: decoded text does not look like a cashu token (does not start with "cashu")\n');
+    } else {
+      try {
+        const { getTokenMetadata } = await import('@cashu/cashu-ts');
+        const meta = getTokenMetadata(out);
+        process.stderr.write(`mint: ${meta.mint}\nunit: ${meta.unit}\namount: ${meta.amount}\n`);
+      } catch (e) {
+        process.stderr.write(`metadata error: ${(e && e.message) ? e.message : String(e)}\n`);
+      }
     }
   }
 

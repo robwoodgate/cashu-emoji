@@ -13,6 +13,26 @@ You can hide arbitrary UTF-8 text (e.g. a `cashuB...` token or a plain message) 
 
 This implementation is based on Paul Butler’s `emoji-encoder` technique and the TypeScript adaptation used in Rob’s `nostrly` repo.
 
+## Quickstart (copy/paste)
+
+```bash
+git clone https://github.com/robwoodgate/cashu-emoji.git
+cd cashu-emoji
+npm ci
+
+# decode a whole message (recommended)
+node ./bin/cashu-emoji.js decode "<paste message>"
+
+# decode and print mint/unit/amount if it’s a cashu token
+node ./bin/cashu-emoji.js decode "<paste message>" --metadata
+
+# encode a hidden message
+node ./bin/cashu-emoji.js encode "🥜" "hello from inside an emoji"
+
+# encode a cashu token
+node ./bin/cashu-emoji.js encode "🥜" "cashuB..."
+```
+
 ## Quick examples
 
 ### Decode (emoji/message → hidden text)
@@ -39,7 +59,7 @@ cashu-emoji encode "🥜" "hello from inside an emoji"
 cashu-emoji encode "🥜" "cashuB..."
 ```
 
-Tip: Some messengers are more reliable when there is a little trailing text after the emoji token (e.g. `" ok"`).
+Tip: Some messengers are less likely to deliver a *truncated/corrupted* emoji-token if **any normal text follows it** (even a single character). It’s not required, just a delivery reliability trick.
 
 ## Test vector
 
