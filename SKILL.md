@@ -21,8 +21,6 @@ Some services embed a `cashu...` token into an emoji using Unicode variation sel
 
 Important: many messengers can *truncate or normalize* Unicode. If the variation selectors are lost, the embedded token cannot be recovered.
 
-## What you can do
-
 ## Quickstart (copy/paste)
 
 ```bash
@@ -51,7 +49,7 @@ node ./bin/cashu-emoji.js encode "🥜" "cashuB..."
 - Output: the embedded UTF‑8 text, usually a `cashuA...`/`cashuB...` token
 
 ```bash
-cashu-emoji decode "<paste entire message>"
+node ./bin/cashu-emoji.js decode "<paste entire message>"
 ```
 
 Decode semantics (important): the decoder ignores normal characters until it finds the first variation-selector byte, then collects bytes until the first normal character after that payload begins.
@@ -62,7 +60,7 @@ Decode semantics (important): the decoder ignores normal characters until it fin
 - Output: an emoji string that visually looks like the emoji but contains the hidden token
 
 ```bash
-cashu-emoji encode "🥜" "cashuB..."
+node ./bin/cashu-emoji.js encode "🥜" "cashuB..."
 ```
 
 Tip: some messengers are less likely to deliver a *truncated/corrupted* emoji-token if **any normal text follows it** (even a single character). It’s not required, just a delivery reliability trick.
@@ -72,10 +70,16 @@ Tip: some messengers are less likely to deliver a *truncated/corrupted* emoji-to
 To sanity-check the decoded token without redeeming it, you can request metadata:
 
 ```bash
-cashu-emoji decode "<message>" --metadata
+node ./bin/cashu-emoji.js decode "<message>" --metadata
 ```
 
 This prints mint/unit/amount using `@cashu/cashu-ts` `getTokenMetadata()` (no mint calls).
+
+## Cashu gotchas for new agents
+
+- A decoded `cashu...` token is a **bearer asset**. Treat it like cash.
+- `--metadata` is a **local parse**. It can’t prove the token is unspent/valid.
+- If decode returns a partial token or nonsense, the messenger likely munged the variation selectors; ask for the token to be re-sent (often with some trailing normal text after the emoji token).
 
 ## Files
 

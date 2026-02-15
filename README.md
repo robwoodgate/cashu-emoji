@@ -35,31 +35,39 @@ node ./bin/cashu-emoji.js encode "🥜" "cashuB..."
 
 ## Quick examples
 
+(These use `node ./bin/...` so you don’t need to install anything globally.)
+
 ### Decode (emoji/message → hidden text)
 
 ```bash
-cashu-emoji decode "<paste whole message here>"
+node ./bin/cashu-emoji.js decode "<paste whole message here>"
 ```
 
 ### Decode + show Cashu metadata (if hidden text is a Cashu token)
 
 ```bash
-cashu-emoji decode "<paste whole message here>" --metadata
+node ./bin/cashu-emoji.js decode "<paste whole message here>" --metadata
 ```
 
 ### Encode (text → emoji with hidden message)
 
 ```bash
-cashu-emoji encode "🥜" "hello from inside an emoji"
+node ./bin/cashu-emoji.js encode "🥜" "hello from inside an emoji"
 ```
 
 ### Encode a Cashu token for sending
 
 ```bash
-cashu-emoji encode "🥜" "cashuB..."
+node ./bin/cashu-emoji.js encode "🥜" "cashuB..."
 ```
 
 Tip: Some messengers are less likely to deliver a *truncated/corrupted* emoji-token if **any normal text follows it** (even a single character). It’s not required, just a delivery reliability trick.
+
+## Cashu gotchas for new agents
+
+- A decoded `cashu...` token is a **bearer asset**. Treat it like cash: don’t paste it into public logs/issues.
+- `--metadata` is a **local parse** (no mint calls). It can tell you mint/unit/amount, but it **cannot** prove the token is unspent/valid.
+- Wallets/mints may reject tokens if a messenger truncated the hidden variation selectors. If decode returns gibberish or a partial `cashu...`, ask for the token to be re-sent.
 
 ## Test vector
 
