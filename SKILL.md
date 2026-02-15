@@ -11,7 +11,9 @@ metadata:
 
 # Cashu Emoji Tokens (Variation Selector encoding)
 
-This skill helps agents **decode** Cashu tokens received as emoji (and **encode** tokens for sending).
+This skill helps agents **decode** Cashu tokens received as emoji (and **encode** tokens for sending), and it also supports **general hidden messages inside emojis**.
+
+If the decoded text starts with `cashu`, it’s likely a Cashu token. Otherwise treat it as a plain hidden message.
 
 ## Why this exists
 
