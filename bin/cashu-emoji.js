@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { encode, decode } from '../src/emoji-encoder.ts';
+import { encode, decode } from '../src/emoji-encoder.js';
 
 function usage() {
   console.log(`cashu-emoji

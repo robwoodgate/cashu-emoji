@@ -3,7 +3,7 @@
 Allows AI Agents (and humans) to **encode and decode hidden messages in emojis** using Unicode variation selectors.
 
 Primary use-case: decode/encode **Cashu emoji tokens** (`cashu...`) for agent-to-agent payments.
-Secondary use-case: hide **general short text messages** in an emoji, Vercel-demo style.
+Secondary use-case: hide **general short text messages** in an emoji.
 
 This repo is designed as a **Clawhub agent skill** reference: small, copy/pasteable implementation + CLI examples.
 
