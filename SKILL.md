@@ -80,6 +80,30 @@ For programmatic/agent use, prefer JSON output:
 node ./bin/cashu-emoji.js decode "<message>" --metadata --json
 ```
 
+Example JSON response (Cashu token):
+
+```json
+{
+  "text": "cashuB...",
+  "isCashu": true,
+  "metadata": {
+    "mint": "https://mint.example",
+    "unit": "sat",
+    "amount": 21
+  },
+  "metadataError": null
+}
+```
+
+Example JSON response (plain hidden message):
+
+```json
+{
+  "text": "hello from inside an emoji",
+  "isCashu": false
+}
+```
+
 ```bash
 node ./bin/cashu-emoji.js decode "<message>" --metadata
 ```
